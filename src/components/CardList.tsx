@@ -21,10 +21,18 @@ export function CardList({ cards }: CardsProps): JSX.Element {
   // TODO SELECTED IMAGE URL STATE
 
   // TODO FUNCTION HANDLE VIEW IMAGE
-
   return (
     <>
       {/* TODO CARD GRID */}
+
+      {cards.map((card, index) => (
+        <div
+          key={String(index).concat('id')}
+          style={{ backgroundColor: 'white', width: 300, height: 150 }}
+        >
+          <h1 style={{ color: 'black' }}>{card.title}</h1>
+        </div>
+      ))}
 
       {/* TODO MODALVIEWIMAGE */}
     </>
