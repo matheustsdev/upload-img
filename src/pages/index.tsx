@@ -51,10 +51,8 @@ export default function Home(): JSX.Element {
       getNextPageParam: lastPage => {
         const { after } = lastPage;
 
-        if (lastPage) {
-          if (after) {
-            return after;
-          }
+        if (after) {
+          return after;
         }
         return null;
       },
