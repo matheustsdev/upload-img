@@ -32,29 +32,17 @@ export default function Home(): JSX.Element {
   } = useInfiniteQuery<PageType>(
     'images',
     async ({ pageParam = null }) => {
-      const response = await api
-        .get(`/api/images`, {
-          params: {
-            after: pageParam,
-          },
-        })
-        .then(res => {
-          return res.data;
-        })
-        .catch(e => {
-          console.log(e);
-        });
+      const response = await api.get(`/api/images`, {
+        params: {
+          after: pageParam,
+        },
+      });
 
-      return response;
+      return response.data;
     },
     {
       getNextPageParam: lastPage => {
-        const { after } = lastPage;
-
-        if (after) {
-          return after;
-        }
-        return null;
+        return lastPage.after ?? null;
       },
     }
   );
@@ -91,7 +79,7 @@ export default function Home(): JSX.Element {
         <CardList cards={formattedData} />
         {/* TODO RENDER LOAD MORE BUTTON IF DATA HAS NEXT PAGE */}
         <button type="button" onClick={() => fetchNextPage}>
-          Poceto
+          Carregar mais
         </button>
       </Box>
     </>
