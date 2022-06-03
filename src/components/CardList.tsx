@@ -1,6 +1,5 @@
-import { Grid, GridItem, SimpleGrid, useDisclosure } from '@chakra-ui/react';
+import { SimpleGrid, useDisclosure } from '@chakra-ui/react';
 import { useState } from 'react';
-import { string } from 'yup';
 import { Card } from './Card';
 import { ModalViewImage } from './Modal/ViewImage';
 
@@ -17,28 +16,34 @@ interface CardsProps {
 }
 
 export function CardList({ cards }: CardsProps): JSX.Element {
-  // TODO MODAL USEDISCLOSURE
+  const { isOpen, onClose, onOpen } = useDisclosure();
   const [imageUrl, setImageUrl] = useState('');
 
   // TODO SELECTED IMAGE URL STATE
 
   // TODO FUNCTION HANDLE VIEW IMAGE
+  function handleViewImage(url: string): void {
+    onOpen();
+    setImageUrl(url);
+  }
+
   return (
     <>
-      {/* TODO CARD GRID */}
-      <Grid templateColumns="repeat(3, 1fr)" gap={10}>
+      <SimpleGrid templateColumns="repeat(3, 1fr)" gap={10}>
         {cards.map(card => (
-          <GridItem>
-            <Card
-              key={card.id}
-              data={card}
-              viewImage={() => setImageUrl(card.url)}
-            />
-          </GridItem>
+          <Card
+            key={card.id}
+            data={card}
+            viewImage={() => handleViewImage(card.url)}
+          />
         ))}
-      </Grid>
+      </SimpleGrid>
 
-      {/* TODO MODALVIEWIMAGE */}
+      <ModalViewImage
+        imgUrl={imageUrl}
+        isOpen={isOpen}
+        onClose={() => onClose()}
+      />
     </>
   );
 }

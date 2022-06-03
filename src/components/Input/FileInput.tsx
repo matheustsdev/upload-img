@@ -73,7 +73,6 @@ const FileInputBase: ForwardRefRenderFunction<
       if (!event.target.files?.length) {
         return;
       }
-
       setImageUrl('');
       setLocalImageUrl('');
       setError('image', null);
