@@ -61,7 +61,7 @@ export default function Home(): JSX.Element {
     return cards;
   }, [data]);
 
-  if (isLoading || isFetchingNextPage) {
+  if (isLoading) {
     return <Loading />;
   }
 

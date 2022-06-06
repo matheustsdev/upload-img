@@ -1,6 +1,6 @@
 import { Box, Button, Stack, useToast } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '../../services/api';
@@ -50,13 +50,11 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
 
   const queryClient = useQueryClient();
   const mutation = useMutation(
-    // TODO MUTATION API POST REQUEST,
     (body: PostImageType) => {
       return api.post(`/api/images`, body);
     },
 
     {
-      // TODO ONSUCCESS MUTATION
       onSuccess: () => {
         queryClient.invalidateQueries('images');
       },
@@ -69,10 +67,6 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
 
   const onSubmit = async (data: Record<string, unknown>): Promise<void> => {
     try {
-      // TODO SHOW ERROR TOAST IF IMAGE URL DOES NOT EXISTS
-      // TODO EXECUTE ASYNC MUTATION
-      // TODO SHOW SUCCESS TOAST
-      console.log(data.title);
       if (!imageUrl) {
         toast({
           title: 'Imagem não adicionada',
@@ -103,7 +97,6 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
         );
       }
     } catch {
-      // TODO SHOW ERROR TOAST IF SUBMIT FAILED
       toast({
         title: 'Falha no cadastro',
         description: 'Ocorreu um erro ao tentar cadastrar a sua imagem.',
@@ -112,7 +105,6 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
         isClosable: true,
       });
     } finally {
-      // TODO CLEAN FORM, STATES AND CLOSE MODAL
       setImageUrl('');
       setLocalImageUrl('');
       reset();
